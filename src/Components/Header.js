@@ -49,6 +49,7 @@ const HeaderLayout = styled.header`
   align-items: center;
   width: 420px;
   height: 50px;
+  background-color: white;
 `;
 
 const Logo = styled.img`
@@ -72,9 +73,11 @@ const MenuLayout = styled.nav`
   width: 420px;
   height: 40px;
   padding: 0px 10px;
+  background-color: white;
 `;
 
 const Menus = styled(Link)`
+  background-color: white;
   color: #777777;
   font-weight: bold;
   &:focus {
