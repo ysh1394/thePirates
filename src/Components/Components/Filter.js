@@ -41,8 +41,6 @@ const Filter = () => {
     setIsZoneData(false);
   };
 
-  console.log(demo_data);
-
   return (
     <>
       <FilterLayout>
@@ -104,6 +102,7 @@ const FilterLayout = styled.section`
   margin: auto;
   border: 1px solid lightgray;
   font-family: 'Noto Sans KR', '맑은 고딕', 'Arial', 'Gulim';
+  background-color: white;
 `;
 
 const FilterName = styled.div`

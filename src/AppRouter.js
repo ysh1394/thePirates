@@ -31,5 +31,6 @@ const Layout = styled.main`
 
 const Format = styled.section`
   width: 420px;
-  background-color: white;
+  height: ${Layout};
+  background-color: #eeeeee;
 `;
