@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 // 롤링 배너
-var bannerData = [
+export var bannerData = [
   {
     label: '활모듬회(소)',
     price: '38,000원→30,000원',
@@ -23,7 +23,7 @@ var bannerData = [
 ];
 
 // 모든 지역
-var zoneData = [
+export var zoneData = [
   {
     locations: [{ label: '노량진수산시장', code: '0000000001' }],
     label: '노량진',
@@ -282,7 +282,7 @@ var zoneData = [
 ];
 
 // 모든 품목
-var itemData = [
+export var itemData = [
   { label: '모든품목', code: '0000000000' },
   { label: '생선/횟감', code: '0000000038' },
   { label: '생선/비횟감', code: '0000000040' },
@@ -299,7 +299,7 @@ var itemData = [
 ];
 
 // 가게 목록
-var storeData = [
+export var storeData = [
   {
     description: '대게, 킹크랩, 꽃게 전문 노량진수산시장 부안꽃게',
     uri: '/노량진수산시장부안꽃게',
