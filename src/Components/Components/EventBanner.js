@@ -16,19 +16,19 @@ const EventBanner = () => {
       <Banner dropdown={isDropdown} onClick={isDropdownEvent}>
         {isDropdown ? <DownIcon /> : <RotateIcon />}
         {isDropdown
-          ? bannerData.map((item, idx) => {
+          ? bannerData.map((item) => {
               return (
                 <>
-                  <ContentAnimation key={idx}>
+                  <ContentAnimation key={item.id}>
                     {item.label} {item.price} {item.comment}
                   </ContentAnimation>
                 </>
               );
             })
-          : bannerData.map((item, idx) => {
+          : bannerData.map((item) => {
               return (
                 <>
-                  <ContentWrapper key={idx}>
+                  <ContentWrapper key={item.id}>
                     {item.label} {item.price} {item.comment}
                   </ContentWrapper>
                 </>
@@ -72,6 +72,10 @@ const ContentWrapper = styled.div`
 const ContentAnimation = styled(ContentWrapper)`
   position: relative;
   animation: ${rotate} ${bannerData.length}s linear infinite;
+
+  /* &:hover {
+    animation-play-state: paused;
+  } */
 `;
 
 const DownIcon = styled(DownOutlined)`

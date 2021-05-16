@@ -11,12 +11,14 @@
 
 ### 적용 기술
 
+
 > `React.js`, `Styled-Components`, `antd `, `React-router-dom`
 > `react-infinite-scroll-component`, `axios`는 패키지 설치는 하였으나, 사용하지 않았습니다.
 
 ## 구현 상세
 
 ### Header : 롤링배너, 필터 UI 구현 완료
+
 `1. EventBanner Component`
 - styled-components의 keyframes를 활용하여 롤링 배너 구현
   -> translateY 초기값에서 데이터의 length를 계산하여 애니메이션 속도 및 변할 값을 계산하였습니다.
