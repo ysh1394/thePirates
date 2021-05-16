@@ -957,3 +957,5 @@ export var storeData = [
     favorite: 'off',
   },
 ];
+
+export var storeDataTotal = storeData.length;

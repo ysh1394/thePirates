@@ -1,54 +1,97 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import * as demo_data from '../data/demo_data';
-import { LoadingOutlined } from '@ant-design/icons';
+
+const Total = demo_data.storeDataTotal;
 
 const Main = () => {
-  const [itemIndex, setItemIndex] = useState(0);
-  const [result, setResult] = useState(demo_data.storeData.slice(0, 10));
   const [loading, setLoading] = useState(false);
+  const [listLength, setListLength] = useState(0);
+  const [list, setList] = useState([]);
 
-  const infiniteScroll = useCallback(() => {
-    let scrollHeight = Math.max(
-      document.documentElement.scrollHeight,
-      document.body.scrollHeight,
-    );
-    let scrollTop = Math.max(
-      document.documentElement.scrollTop,
-      document.body.scrollTop,
-    );
-    let clientHeight = document.documentElement.clientHeight;
-
-    // setLoading(true);
-    if (
-      scrollTop + clientHeight >= scrollHeight &&
-      result.length < demo_data.storeData.length
-    ) {
-      setTimeout(() => {
-        setItemIndex(itemIndex + 10);
-        setResult(
-          result.concat(
-            demo_data.storeData.slice(itemIndex + 10, itemIndex + 20),
-          ),
-        );
-        // setLoading(false);
-      }, 2000);
-    }
-  }, [itemIndex, result]);
+  const fetchList = useCallback((listLength) => {
+    const res = demo_data.storeData.slice(listLength, listLength + 10);
+    setList((prev) => [...prev, ...res]);
+    setLoading(true);
+  }, []);
 
   useEffect(() => {
-    window.addEventListener('scroll', infiniteScroll, true);
-    return () => window.removeEventListener('scroll', infiniteScroll, true);
+    fetchList(listLength);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [listLength]);
+
+  const loadMore = useCallback(() => {
+    if (listLength !== list.length) {
+      setListLength((prev) => prev + 10);
+    }
+  }, [list.length, listLength]);
+
+  const pageEnd = useRef();
+  const infiniteScroll = useCallback(() => {
+    if (loading && listLength <= list.length) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            setTimeout(() => {
+              loadMore();
+              observer.unobserve(pageEnd.current);
+            }, 1000);
+          }
+        },
+        { threshold: 1 },
+      );
+      observer.observe(pageEnd.current);
+    }
+    if (listLength === Total) {
+      setLoading(false);
+    }
+  }, [list.length, listLength, loadMore, loading]);
+
+  useEffect(() => {
+    infiniteScroll();
   }, [infiniteScroll]);
+
+  // const infiniteScroll = useCallback(() => {
+  //   let scrollHeight = Math.max(
+  //     document.documentElement.scrollHeight,
+  //     document.body.scrollHeight,
+  //   );
+  //   let scrollTop = Math.max(
+  //     document.documentElement.scrollTop,
+  //     document.body.scrollTop,
+  //   );
+  //   let clientHeight = document.documentElement.clientHeight;
+
+  //   // setLoading(true);
+  //   if (
+  //     scrollTop + clientHeight >= scrollHeight &&
+  //     list.length < demo_data.storeData.length
+  //   ) {
+  //     setTimeout(() => {
+  //       setListLength(listLength + 10);
+  //       setResult(
+  //         list.concat(
+  //           demo_data.storeData.slice(listLength + 10, listLength + 20),
+  //         ),
+  //       );
+  //       // setLoading(false);
+  //     }, 2000);
+  //   }
+  // }, [listLength, list]);
+
+  // useEffect(() => {
+  //   window.addEventListener('scroll', infiniteScroll, true);
+  //   return () => window.removeEventListener('scroll', infiniteScroll, true);
+  // }, [infiniteScroll]);
 
   return (
     <>
       <MainLayout>
         <TitleName>프리미엄 가게</TitleName>
-        {result.map((list) => {
+        {list.map((list) => {
           return (
             <>
-              <StoreList>
+              <StoreList key={list.id}>
                 <StoreImg src={list.thumbnail} alt={list.uri} />
                 <StoreInfo>
                   <StoreNameinfo>
@@ -65,7 +108,7 @@ const Main = () => {
             </>
           );
         })}
-        {loading && <Loading style={{ fontSize: 24 }} spin />}
+        {loading && <Loading ref={pageEnd} />}
       </MainLayout>
     </>
   );
@@ -132,9 +175,26 @@ const StoreDetail = styled.h5`
   font-size: 13px;
 `;
 
-const Loading = styled(LoadingOutlined)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0px;
+const Loading = styled.div`
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  margin: 50px 0px;
+  border-radius: 50%;
+  border: 5px solid #eeeeee;
+  opacity: 0.7;
+  border-top: 5px solid #1c79bc;
+  animation: animate 1.5s infinite linear;
+
+  @keyframes animate {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
 `;

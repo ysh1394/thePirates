@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+## 더 파이러츠 과제 전형
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 담당자 : 유승현
 
-## Available Scripts
+### 프로젝트 목표
 
-In the project directory, you can run:
+> 1. 롤링 배너 구현 -> 완료
+> 2. 필터 UI 구현 -> 완료
+> 3. 메인페이지 무한스크롤 -> 완료
+> 4. 상세페이지 이동 -> 미완료
 
-### `npm start`
+### 적용 기술
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+> `React.js`, `Styled-Components`, `antd `, `React-router-dom` > `react-infinite-scroll-component`, `axios`는 패키지 설치는 하였으나, 사용하지 않았습니다.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 구현 상세
 
-### `npm test`
+### Header : 롤링배너, 필터 UI 구현 완료
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`1. EventBanner Component`
 
-### `npm run build`
+- styled-components의 keyframes를 활용하여 롤링 배너 구현
+  -> translateY 초기값에서 데이터의 length를 계산하여 애니메이션 속도 및 변할 값을 계산하였습니다.
+  `2. Filter Component`
+- map 함수를 활용하여 3개 필터 UI 구현
+  -> 각 필터들의 상태값을 토글형태로 관리하여 클릭된 필터를 제외하고는 조건부 렌더링으로 보이지 않도록 하였습니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Main : 메인페이지 무한스크롤 구현 완료
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`1. Main Component`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Scroll Event로 무한 스크롤 기능 구현 완료
+  -> 데이터를 최초에 10개만 받은 뒤, 스크롤변화를 감지하여 10개씩 추가로 받아 질 수 있도록 하였습니다.
+  > 이슈사항 : 스크롤이벤트가 계속 발생되어 과부하 현상이 있습니다. 더 좋은 방법을 써서 보완해야할 것 같습니다.
